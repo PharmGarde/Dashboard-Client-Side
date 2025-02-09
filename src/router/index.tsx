@@ -1,31 +1,61 @@
-import { createBrowserRouter } from "react-router-dom";
-import DashboardLayout from "../layouts/DashboardLayout";
-import Login from "../pages/Login";
-import Users from "../pages/Users";
-import Pharmacies from "../pages/Pharmacies";
-import Statistics from "../pages/Statistics";
+import { Navigate, Outlet } from 'react-router-dom';
+import DashboardLayout from '../layouts/DashboardLayout';
+import Login from '../pages/Login';
+import Users from '../pages/Users';
+import Pharmacies from '../pages/Pharmacies';
+import Statistics from '../pages/Statistics';
+import { AuthProvider } from '../context/AuthContext';
 
-export const router = createBrowserRouter([
+const ProtectedRoute = () => {
+  const token = localStorage.getItem('token');
+  return token ? <Outlet /> : <Navigate to="/login" />;
+};
+
+const PublicRoute = () => {
+  const token = localStorage.getItem('token');
+  return token ? <Navigate to="/admin" /> : <Outlet />;
+};
+
+export const routes = [
   {
-    path: "/login",
-    element: <Login />,
-  },
-  {
-    path: "/admin",
-    element: <DashboardLayout />,
+    element: <AuthProvider />,
     children: [
       {
-        path: "",
-        element: <Statistics />,
+        element: <PublicRoute />,
+        children: [
+          {
+            path: '/login',
+            element: <Login />,
+          },
+        ],
       },
       {
-        path: "users",
-        element: <Users />,
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: '/admin',
+            element: <DashboardLayout />,
+            children: [
+              {
+                path: '',
+                element: <Statistics />,
+              },
+              {
+                path: 'users',
+                element: <Users />,
+              },
+              {
+                path: 'pharmacies',
+                element: <Pharmacies />,
+              },
+            ],
+          },
+        ],
       },
       {
-        path: "pharmacies",
-        element: <Pharmacies />,
+        path: '/',
+        element: <Navigate to="/admin" replace />,
       },
     ],
   },
-]);
+];
