@@ -1,21 +1,26 @@
-import { createBrowserRouter } from "react-router-dom";
-import DashboardLayout from "../layouts/DashboardLayout";
-import Users from "../pages/Users";
-import Pharmacies from "../pages/Pharmacies";
+import { createBrowserRouter } from 'react-router-dom';
+import DashboardLayout from '../layouts/DashboardLayout';
+import Users from '../pages/Users';
+import Pharmacies from '../pages/Pharmacies';
+import Statistics from '../pages/Statistics';
 
 export const router = createBrowserRouter([
   {
-    path: "/admin",
+    path: '/admin',
     element: <DashboardLayout />,
     children: [
       {
-        path: "users",
-        element: <Users />,
+        path: '',  // This makes statistics the default page for /admin
+        element: <Statistics />
       },
       {
-        path: "pharmacies",
-        element: <Pharmacies />,
+        path: 'users',
+        element: <Users />
       },
-    ],
-  },
+      {
+        path: 'pharmacies',
+        element: <Pharmacies />
+      }
+    ]
+  }
 ]);

@@ -1,35 +1,35 @@
-import { Link, useLocation } from "react-router-dom";
-import {
-  UsersIcon,
+import { Link, useLocation } from 'react-router-dom';
+import { 
+  UsersIcon, 
   BuildingStorefrontIcon,
   ChartBarIcon,
-  ClipboardDocumentListIcon,
-} from "@heroicons/react/24/outline";
+  ClipboardDocumentListIcon 
+} from '@heroicons/react/24/outline';
 
 const Sidebar = () => {
   const location = useLocation();
 
   const menuItems = [
     {
-      path: "/admin/dashboard",
-      name: "Dashboard",
-      icon: ChartBarIcon,
+      path: '/admin',
+      name: 'Statistics',
+      icon: ChartBarIcon
     },
     {
-      path: "/admin/users",
-      name: "Users",
-      icon: UsersIcon,
+      path: '/admin/users',
+      name: 'Users',
+      icon: UsersIcon
     },
     {
-      path: "/admin/pharmacies",
-      name: "Pharmacies",
-      icon: BuildingStorefrontIcon,
+      path: '/admin/pharmacies',
+      name: 'Pharmacies',
+      icon: BuildingStorefrontIcon
     },
     {
-      path: "/admin/prescriptions",
-      name: "Prescriptions",
-      icon: ClipboardDocumentListIcon,
-    },
+      path: '/admin/prescriptions',
+      name: 'Prescriptions',
+      icon: ClipboardDocumentListIcon
+    }
   ];
 
   return (
@@ -42,9 +42,9 @@ const Sidebar = () => {
               key={item.path}
               to={item.path}
               className={`flex items-center space-x-3 px-6 py-3 mx-4 rounded-lg transition-colors ${
-                isActive
-                  ? "bg-teal-50 text-teal-600"
-                  : "text-gray-600 hover:bg-gray-50"
+                isActive 
+                  ? 'bg-teal-50 text-teal-600' 
+                  : 'text-gray-600 hover:bg-gray-50'
               }`}
             >
               <item.icon className="h-6 w-6" />
